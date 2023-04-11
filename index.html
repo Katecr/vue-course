@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexión CDN</title>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="app">{{ text }}</div>
+    <script>
+        const vm = Vue.createApp({
+            data() {
+                return {
+                    text: 'Hello Word!'
+                }
+            }
+        }).mount('#app');
+        console.log(vm);
+    </script>
+</body>
+</html>
