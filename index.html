@@ -12,13 +12,29 @@
         const vm = Vue.createApp({
             data() {
                 return {
-                    attr:"src",
-                    link_img: "https://fastly.picsum.photos/id/25/200/300.jpg?hmac=ScdLbPfGd_kI3MUHvJUb12Fsg1meDQEaHY_mM613BVM"
+                    counter: 0
                 };
             },
-            template: `<img v-bind:[attr]="link_img"/>`
+            methods:{
+                increment(){
+                    this.counter++;
+                },
+
+                decrement() {
+                    this.counter--;
+                },
+
+                reset() {
+                    this.counter = 0;
+                }
+            },
+            template: `
+                <button v-on:click="increment">+</button>
+                <button v-on:click="decrement">-</button>
+                <button v-on:click="reset">Reset</button>
+                <p>{{counter}}</p>
+            `
         }).mount('#app');
-        console.log(vm);
     </script>
 </body>
 </html>

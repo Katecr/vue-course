@@ -12,6 +12,7 @@
 1. [Configuración del entorno](#configuración-del-entorno)
 2. [Interpolación de datos](#interpolación-de-datos)
 3. [Atributos reactivos](#atributos-reactivos)
+4. [Eventos de usuario](#eventos-de-usuario)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -156,5 +157,45 @@ Ejemplos:
         template: `<img v-bind:[attr]="link_img"/>`
     }).mount('#app');
     console.log(vm);
+</script>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Eventos de usuario
+---
+
+Se puede realizar con vue todos los eventos de un formulario como clic, touch, submit, keyup etc.
+
+```javascript
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<div id="app"></div>
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                counter: 0
+            };
+        },
+        methods:{
+            increment(){
+                this.counter++;
+            },
+
+            decrement() {
+                this.counter--;
+            },
+
+            reset() {
+                this.counter = 0;
+            }
+        },
+        template: `
+            <button v-on:click="increment">+</button>
+            <button v-on:click="decrement">-</button>
+            <button v-on:click="reset">Reset</button>
+            <p>{{counter}}</p>
+        `
+    }).mount('#app');
 </script>
 ```
