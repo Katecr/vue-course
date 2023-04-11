@@ -13,6 +13,7 @@
 2. [Interpolación de datos](#interpolación-de-datos)
 3. [Atributos reactivos](#atributos-reactivos)
 4. [Eventos de usuario](#eventos-de-usuario)
+5. [Inputs reactivos](#inputs-reactivos)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -195,6 +196,85 @@ Se puede realizar con vue todos los eventos de un formulario como clic, touch, s
             <button v-on:click="decrement">-</button>
             <button v-on:click="reset">Reset</button>
             <p>{{counter}}</p>
+        `
+    }).mount('#app');
+</script>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+
+## Inputs reactivos
+---
+
+Como vue se encarga de sincronizar la vista con el modelo o viceversa.
+
+1. Cuando se lea un cambio en un input
+```javascript
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                text: 'Hello vue!'
+            };
+        },
+        methods:{
+            input(e){
+                this.text = e.target.value;
+            }
+        },
+        template: `
+            <p>{{ text }}</p>
+            <input type="text" v-on:change="input" />
+        `
+    }).mount('#app');
+</script>
+```
+
+2. Cuando se escriba en tiempo real
+```javascript
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                text: 'Hello vue!'
+            };
+        },
+        methods:{
+            input(e){
+                this.text = e.target.value;
+            }
+        },
+        template: `
+            <p>{{ text }}</p>
+            <input type="text" v-on:input="input" />
+        `
+    }).mount('#app');
+</script>
+```
+
+> Para no copiar toda la sintaxis de eventos: v-on y atributos: v-bind, se puede resumir de la siguiente manera:
+```v-on``` = @
+```v-bind``` = :
+
+```javascript
+<input type="text" v-on:input="input" v-bind:value="text" />
+<input type="text" @input="input" :value="text" />
+```
+
+3. La directiva v-model: ara crear bindings de datos bidireccionales (two-way binding) en elementos input, textarea y select de un formulario.
+
+```javascript
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                text: 'Hello vue!'
+            };
+        },
+        template: `
+            <p>{{ text }}</p>
+            <input type="text" v-model='text' />
         `
     }).mount('#app');
 </script>

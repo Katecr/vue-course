@@ -12,27 +12,12 @@
         const vm = Vue.createApp({
             data() {
                 return {
-                    counter: 0
+                  text: 'Hello vue!'
                 };
             },
-            methods:{
-                increment(){
-                    this.counter++;
-                },
-
-                decrement() {
-                    this.counter--;
-                },
-
-                reset() {
-                    this.counter = 0;
-                }
-            },
             template: `
-                <button v-on:click="increment">+</button>
-                <button v-on:click="decrement">-</button>
-                <button v-on:click="reset">Reset</button>
-                <p>{{counter}}</p>
+                <p>{{ text }}</p>
+                <input type="text" v-model='text' />
             `
         }).mount('#app');
     </script>
