@@ -14,6 +14,7 @@
 3. [Atributos reactivos](#atributos-reactivos)
 4. [Eventos de usuario](#eventos-de-usuario)
 5. [Inputs reactivos](#inputs-reactivos)
+6. [Propiedades computadas](#propiedades-computadas)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -275,6 +276,43 @@ Como vue se encarga de sincronizar la vista con el modelo o viceversa.
         template: `
             <p>{{ text }}</p>
             <input type="text" v-model='text' />
+        `
+    }).mount('#app');
+</script>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+
+## Propiedades computadas
+---
+
+Nos sirve para realizar lógica con nuestros datos
+
+```javascript
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<div id="app"></div>
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                firstname: 'Kate',
+                lastname: 'Castaño!',
+                now: new Date()
+            };
+        },
+        computed:{
+            fullName(){
+                return this.firstname + ' ' + this.lastname;
+            },
+
+            today(){
+                return this.now.toLocaleDateString();
+            }
+        },
+        template: `
+            <div>{{ fullName }}</div>
+            <div>{{ today }}</div>
         `
     }).mount('#app');
 </script>
