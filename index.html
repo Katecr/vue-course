@@ -12,10 +12,11 @@
         const vm = Vue.createApp({
             data() {
                 return {
-                    text: 'Hello Word!'
-                }
+                    attr:"src",
+                    link_img: "https://fastly.picsum.photos/id/25/200/300.jpg?hmac=ScdLbPfGd_kI3MUHvJUb12Fsg1meDQEaHY_mM613BVM"
+                };
             },
-            template: `<div v-once v-text="text"><div/>`
+            template: `<img v-bind:[attr]="link_img"/>`
         }).mount('#app');
         console.log(vm);
     </script>

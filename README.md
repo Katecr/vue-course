@@ -11,7 +11,7 @@
 # Tabla de contenido
 1. [Configuración del entorno](#configuración-del-entorno)
 2. [Interpolación de datos](#interpolación-de-datos)
-
+3. [Atributos reactivos](#atributos-reactivos)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -127,3 +127,34 @@ La directiva `v-html` permite usar html dentro de las variables, hay que tener c
 </script>
 ```
 
+<div style="margin-bottom:50px;"></div>
+
+## Atributos reactivos
+---
+
+`v-bind:` es una directiva que se pone antes del atributo al cual su valor quiero cambiar dinamicamente. una conjugacion para "v-bind: " es " : "
+
+Ejemplos:
+```html
+<img v-bind:src="link_img" alt="img_vue" title="img_vue" />
+```
+```html
+<img :src="img" alt="img_vue" title="img_vue" />
+```
+
+```html
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<div id="app"></div>
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                attr:"src",
+                link_img: "https://fastly.picsum.photos/id/25/200/300.jpg?hmac=ScdLbPfGd_kI3MUHvJUb12Fsg1meDQEaHY_mM613BVM"
+            };
+        },
+        template: `<img v-bind:[attr]="link_img"/>`
+    }).mount('#app');
+    console.log(vm);
+</script>
+```
