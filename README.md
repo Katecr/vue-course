@@ -26,6 +26,7 @@
     - [Comunicación de componente hijo a padre](#comunicación-de-componente-hijo-a-padre)
 14. [Custom v-model](#custom-v-model)
 15. [Comunicación con componentes profundos](#comunicación-con-componentes-profundos)
+16. [Instancias de componentes](#instancias-de-componentes)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -981,3 +982,17 @@ Un componente profundo es cuando un componente no es directamente hijo de un ele
     const vm = app.mount("#app");
 </script>
 ```
+
+<div style="margin-bottom:50px;"></div>
+
+## Instancias de componentes
+--- 
+
+Una instancia es una copia de un componente de Vue. Estas instancias sirven para acceder a partes de DOM con vue
+
+1. Usando ```vm.$root``` devuelve el objet raiz, el ue contiene todo el árbol de componentes de la aplicación
+2. Usando ```vm.$el``` se accede al componente html de la aplicación
+3. Para acceder a referencias especificas a un componente ```vm.$refs```.
+4. Para props, ```vm.$props``` de esta forma se puede interactuar con Vue y JavaScript Vanila de forma progresiva.
+
+> https://lenguajejs.com/vuejs/componentes/instancias-vue/

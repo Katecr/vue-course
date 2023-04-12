@@ -15,31 +15,17 @@
                     text: "Hola Vue"
                 };
             },
-            provide() {
-                return {
-                    otroTexto: this.text
-                };
-            },
-            template: `
-                    <div>{{ text }}</div>
-                    <otro />
-                `
+            template: `<v-button ref="elemento" :label="text"></v-button>`
         });
 
-        app.component("otro", {
-            template: `<tercer />`
-        });
-
-        app.component("tercer", {
-            inject: {
-                otroTexto: {
-                    from: "otroTexto",
-                }
-            },
-            template: `<div>{{ otroTexto }}</div>`
+        app.component("v-button", {
+            props: ["label"],
+            template: `<button>{{ label }}</button>`
         });
 
         const vm = app.mount("#app");
+
+        console.log(vm.$props);
     </script>
 </body>
 </html>
