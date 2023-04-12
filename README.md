@@ -9,25 +9,47 @@
 <div style="margin-bottom:50px;"></div>
 
 # Tabla de contenido
-1. [Configuración del entorno](#configuración-del-entorno)
-2. [Interpolación de datos](#interpolación-de-datos)
-3. [Atributos reactivos](#atributos-reactivos)
-4. [Eventos de usuario](#eventos-de-usuario)
-5. [Inputs reactivos](#inputs-reactivos)
-6. [Propiedades computadas](#propiedades-computadas)
-7. [Watchers](#watchers)
-8. [Estilos reactivos](#estilos-reactivos)
-9. [Condicionales](#condicionales)
-10. [Listas](#listas)
-11. [Componentes](#componentes)
-12. [Slots](#slots)
-13. Comunicación de componentes
+1. [Fundamentos de componentes](#fundamentos-de-componentes)
+2. [Configuración del entorno](#configuración-del-entorno)
+3. [Interpolación de datos](#interpolación-de-datos)
+4. [Atributos reactivos](#atributos-reactivos)
+5. [Eventos de usuario](#eventos-de-usuario)
+6. [Inputs reactivos](#inputs-reactivos)
+7. [Propiedades computadas](#propiedades-computadas)
+8. [Watchers](#watchers)
+9. [Estilos reactivos](#estilos-reactivos)
+10. [Condicionales](#condicionales)
+11. [Listas](#listas)
+12. [Componentes](#componentes)
+13. [Slots](#slots)
+14. Comunicación de componentes
     - [Comunicación de componente padre a hijo ](#comunicación-de-componente-padre-a-hijo)
     - [Comunicación de componente hijo a padre](#comunicación-de-componente-hijo-a-padre)
-14. [Custom v-model](#custom-v-model)
-15. [Comunicación con componentes profundos](#comunicación-con-componentes-profundos)
-16. [Instancias de componentes](#instancias-de-componentes)
-17. [Vue progresivo](#vue-progresivo)
+15. [Custom v-model](#custom-v-model)
+16. [Comunicación con componentes profundos](#comunicación-con-componentes-profundos)
+17. [Instancias de componentes](#instancias-de-componentes)
+18. [Vue progresivo](#vue-progresivo)
+
+
+<div style="margin-bottom:50px;"></div>
+
+## Fundamentos de componentes
+---
+
+Los componentes interactuan entre sí por medio de una interfaz
+
+***El patrón utilizado en VUE***
+Two Way Data Binding es un patrón MVVM (model - view - view - model) donde se enlazan dos elementos en dos direcciones (cuando cambia uno cambia el otro). Sirve para tener los datos sincronizados con el DOM sin hacer esfuerzos adicionales.
+
+
+***Partes de un componente***
+
+__Vista__ Es la parte visual del componente con la que el usuario interactúa.
+
+__Estado__ Es el estado interno del componente (habilitado, deshabilitado).
+
+__Interfaz__ Es la forma en que el resto del sistema interactúa con el componente
+
 
 <div style="margin-bottom:50px;"></div>
 
@@ -300,7 +322,7 @@ Como vue se encarga de sincronizar la vista con el modelo o viceversa.
 ## Propiedades computadas
 ---
 
-Nos sirve para realizar lógica con nuestros datos
+Nos sirve para realizar lógica con nuestros datos. Basicamente son funciones que devuelven un valor del componente PERO antes hace algun calculo o transformacion.
 
 ```javascript
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -1007,3 +1029,104 @@ Una instancia es una copia de un componente de Vue. Estas instancias sirven para
 Otra manera de utilizar vue es a través de CLI
 
 > https://cli.vuejs.org/guide/installation.html
+
+
+<div style="margin-bottom:50px;"></div>
+
+## Preguntas frecuentes
+--- 
+
+1. ¿Qué rol asume VueJS dentro del patrón MVVM?
+ - ViewModel
+
+2. VueJS es un framework...
+ - Progresivo, reactivo, popular, creado por la comunidad
+
+3. ¿Para qué sirve la directiva v-on?
+ - Para escuchar eventos de usuario
+
+4. ¿Cuál es el patrón arquitectónico de VueJS?
+ - Modelo vista, vista modelo
+
+5. ¿Qué es la interfaz de un componente?
+ - 
+
+6. ¿Cómo se pueden comunicar los componentes con sus padres?
+ - Por medio de eventos
+
+7. ¿Qué son los componentes en frontend?
+ - Elementos de interfaz de usuario
+
+8. ¿Qué son las propiedades computadas?
+ - Son variables reactivas que dependen de otras variables.
+
+9. ¿Qué precauciones se deben tener al utilizar v-html?
+ - Que los datos nunca deben provenir directamente de los usuarios para evitar ataques XSS
+
+10. ¿Cómo se comunican los componentes?
+ - Por medio de una interfaz pública
+
+11. ¿Para qué sirve el atributo key en directivas v-for?
+ - Para generar un identificador único y evitar renderizaciones innecesarias
+
+12. ¿Es posible realizar estilos reactivos y dinámicos con VueJS?
+ - Sí, conas las directivas v-class y v-style
+
+13. ¿Qué es el estado de un componente?
+ - El modelo de datos interno del componente.
+
+14. ¿Cuáles son las directivas condicionales?
+ - v-if, v-else, v-else-if
+
+15. ¿Quién creó VueJS?
+ - Evan you
+
+16. ¿Qué sintaxis nos permite utilizar variables reactivas en nuestro template?
+ - Interpolación con dobles llaves o directivas
+
+17. ¿Cómo se pueden comunicar los componentes con sus hijos?
+ - 
+ 
+18. ¿Qué propiedad de VueJS se utiliza para emitir eventos?
+ - $emit
+
+19. ¿Qué es un componente?
+ - Una pieza de software reutilizable
+
+20. ¿Cómo se pueden comunicar los componentes con descendientes profundos?
+ - Con provide/inject
+
+21. ¿Para qué sirve la directiva v-bind?
+ - Para añadir reactividad a los atributos de un template
+
+22. ¿Qué permiten las directivas?
+ - Utilizar una sintaxis declarativa para interactuar con la vista.
+
+23. ¿Para qué sirven los slots?
+ - Para poder realizar composición de componentes en los templates
+
+24. ¿Cuáles son las partes de un componente?
+ - Vista, estado e interfaz.
+
+25. ¿Cuáles de estas cosas se pueden hacer con directivas?
+ - Escuchar eventos e interpolación de datos.
+
+26. ¿Qué significa que VueJS sea un framework progresivo?
+ - Que es posible comenzar a utilizarlo poco a poco sin tener que aprenderlo todo
+
+27. ¿Qué directiva se utiliza para realizar two-way data binding?
+ - v-model
+
+28. ¿Qué son los watchers?
+ - Son funciones que escuchan los cambios reactivos para ejecutar una acción
+
+29. ¿Qué es la vista de un componente?
+ - Todo aquello con lo que el usuario puede interactuar
+
+30. ¿Cuál es la versión más reciente de VueJS?
+ - Versión 3
+
+
+
+
+
