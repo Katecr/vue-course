@@ -15,6 +15,7 @@
 4. [Eventos de usuario](#eventos-de-usuario)
 5. [Inputs reactivos](#inputs-reactivos)
 6. [Propiedades computadas](#propiedades-computadas)
+7. [Watchers](#watchers)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -313,6 +314,73 @@ Nos sirve para realizar lógica con nuestros datos
         template: `
             <div>{{ fullName }}</div>
             <div>{{ today }}</div>
+        `
+    }).mount('#app');
+</script>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+
+## Watchers
+---
+
+Un observador en Vue es una característica especial que nos permite observar algunos datos y realizar acciones específicas cuando cambian.
+
+1. tiene como regla que debe ser el mismo nombre de la variable que se quiera escuchar
+
+2. puedes obtener parametros, nuevo valor y viejo valor
+
+```javascript
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<div id="app"></div>
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                text: 'Hello vue!'
+            };
+        },
+        watch: {
+            text(value, old){
+                console.log('Whatcher',value, old);
+            }
+        },
+        template: `{{ text }}`
+    }).mount('#app');
+</script>
+```
+
+> Ejemplo abrir y cerrar puerta
+
+```javascript
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<div id="app"></div>
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                text: 'Puerta cerrada',
+                open: false
+            };
+        },
+        watch: {
+            //tiene como regla que debe ser el mismo nombre de la variable que se quiera escuchar
+            open(value){
+                if (value){
+                    this.text = 'Puerta abierta';
+                }else {
+                    this.text = 'Puerta cerrada';
+                }
+            }
+        },
+        computed:{
+            label(){
+                this.open ? "Cerrar" : "Abrir";
+            }
+        },
+        template: `<div>{{ text }}</div>
+        <button @click="open = !open">{{ label }}</button>
         `
     }).mount('#app');
 </script>

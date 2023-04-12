@@ -12,23 +12,27 @@
         const vm = Vue.createApp({
             data() {
                 return {
-                  firstname: 'Kate',
-                  lastname: 'Castaño!',
-                  now: new Date()
+                  text: 'Puerta cerrada',
+                  open: false
                 };
             },
-            computed:{
-                fullName(){
-                    return this.firstname + ' ' + this.lastname;
-                },
-
-                today(){
-                    return this.now.toLocaleDateString();
+            watch: {
+                //tiene como regla que debe ser el mismo nombre de la variable que se quiera escuchar
+                open(value){
+                    if (value){
+                        this.text = 'Puerta abierta';
+                    }else {
+                        this.text = 'Puerta cerrada';
+                    }
                 }
             },
-            template: `
-                <div>{{ fullName }}</div>
-                <div>{{ today }}</div>
+            computed:{
+                label(){
+                    this.open ? "Cerrar" : "Abrir";
+                }
+            },
+            template: `<div>{{ text }}</div>
+            <button @click="open = !open">{{ label }}</button>
             `
         }).mount('#app');
     </script>
