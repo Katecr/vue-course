@@ -17,6 +17,7 @@
 6. [Propiedades computadas](#propiedades-computadas)
 7. [Watchers](#watchers)
 8. [Estilos reactivos](#estilos-reactivos)
+9. [Condicionales](#condicionales)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -428,14 +429,6 @@ Para utilizar estilos en el template de vue, se pueden de dos maneras con style 
             padding: 8px 24px;
             border-radius: 12px;
         }
-    
-        .closed {
-            background-color: #eca1a6;
-        }
-    
-        .open {
-            background-color: #b5e7a0;
-        }
     </style>
 </head>
 <body>
@@ -562,4 +555,59 @@ Para utilizar estilos en el template de vue, se pueden de dos maneras con style 
     </script>
 </body>
 </html>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Condicionales
+--- 
+
+Se pueden utilizar condicionales dentro de los templates, se utiliza las directivas:  ```v-if``` y ```v-else```
+```javascript
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                text: 'Acceder a tu cuenta',
+                open: false,
+                username: ""
+            };
+        },
+        watch: {
+            open(value) {
+                if (value) {
+                    this.text = 'Cerrar sesión';
+                } else {
+                    this.text = 'Acceder a tu cuenta';
+                    this.username = "";
+                }
+            }
+        },
+        computed: {
+            textButton() {
+                return this.open ? 'Salir' : 'Acceder';
+            },
+
+            bgColor() {
+                return this.open ? ['open'] : ['closed'];
+            },
+        },
+        template: `
+            <div class="container" :class="bgColor">
+                <h2>{{ text }}</h2>
+                <div v-if="open">
+                    <p>Hola, {{ username }}</p>
+                </div>
+                <div v-else>
+                    <div>Username</div>
+                    <input type="text" v-model="username" />    
+                </div>
+                <button @click="open = !open">
+                    <div v-if="!open">Acceder</div>
+                    <div v-else>Salir</div> 
+                </button>
+            </div>
+        `
+    }).mount('#app');
+</script>
 ```
