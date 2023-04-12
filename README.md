@@ -20,6 +20,7 @@
 9. [Condicionales](#condicionales)
 10. [Listas](#listas)
 11. [Componentes](#componentes)
+12. [Slots](#slots)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -746,4 +747,61 @@ app.component('item', {
 <div class="list">
     <item v-for="(item, i) in posts" :key="i" :post="item"  />
 </div>
+```
+
+
+<div style="margin-bottom:50px;"></div>
+
+## Slots
+--- 
+
+los slots sirven para aprovechar la sintaxis de HTML y definir un contenedor hijo independientemente de la etiqueta html
+
+```javascript
+<script>
+    const app = Vue.createApp({
+        template: `
+        <div>
+            <v-header>Titulos</v-header>
+            <div>Lorem ipsum dolor </div>
+        </div>
+        `
+    });
+    app.component("v-header", {
+        template:`<header><slot></slot></header>`
+    })
+    const vm = app.mount('#app');
+</script>
+```
+
+Se pueden tener contenedores dentro de contendores así:
+```javascript
+app.component("v-layout", {
+    template:`
+        <header>
+            <slot name="title"></slot>
+        </header>
+        <div>
+            <slot name="content"></slot>
+        </div>
+    `
+})
+```
+
+Cuando se utilizan mas de dos slot se deben nombrar y tener como identificarlo, su nombre inicial es default.
+```javascript
+<slot name="content"></slot>
+```
+
+La forma de asignarle el valor es con la etiqueta ```v-slot:nombre_del_slot```
+```javascript
+<template v-slot:title>Titulo</template>
+```
+
+Cuando se tienen dos o mas etiquetas en un mismo componente deben accederse a traves de template
+```javascript
+<v-layout>
+    <template v-slot:title>Titulo</template>
+    <template v-slot:content>Lorem lorem</template>
+</v-layout>
 ```

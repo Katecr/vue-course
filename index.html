@@ -4,157 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conexión CDN</title>
-    <style>
-        html,
-        body {
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-    
-        #app,
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-        }
-    
-        button {
-            margin-top: 24px;
-            border: none;
-            background-color: white;
-            padding: 8px 24px;
-            border-radius: 12px;
-        }
-    
-        .closed {
-            background-color: #eca1a6;
-        }
-    
-        .open {
-            background-color: #b5e7a0;
-        }
-        .list {
-            display: flex;
-            flex-direction: column;
-        }
-        .item {
-            border: 1px solid black;
-        }
-        .title {
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-
-        .tamanio{
-            width: 50%;
-        }
-    </style>
 </head>
 <body>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <div id="app"></div>
     <script>
         const app = Vue.createApp({
-            data() {
-                return {
-                    text: 'Acceder a tu cuenta',
-                    open: false,
-                    username: "",
-                    title: "",
-                    description: "",
-                    posts: [{
-                        title: "Titulo 1",
-                        description: "Lorem ipsum..."
-                    }, {
-                        title: "Titulo 2",
-                        description: "Lorem ipsum..."
-                    }, {
-                        title: "Titulo 3",
-                        description: "Lorem ipsum..."
-                    }, {
-                        title: "Titulo 4",
-                        description: "Lorem ipsum..."
-                    }]
-                };
-            },
-            methods:{
-                deletePost(value) {
-                    this.posts.splice(value, 1);
-                },
-                addPost() {
-                    obj = {
-                        title: this.title,
-                        description: this.description
-                    }
-                    this.posts.push(obj);
-                }
-            },
-            watch: {
-                open(value) {
-                    if (value) {
-                        this.text = 'Cerrar sesión';
-                    } else {
-                        this.text = 'Acceder a tu cuenta';
-                        this.username = "";
-                    }
-                }
-            },
-            computed: {
-                textButton() {
-                    return this.open ? 'Salir' : 'Acceder';
-                },
-
-                bgColor() {
-                    return this.open ? ['open'] : ['closed'];
-                },
-            },
             template: `
-                <div class="container" :class="bgColor">
-                    <h2>{{ text }}</h2>
-                    <div v-if="open" class="tamanio">
-                        <p>Hola, {{ username }}</p>
-                        <div>
-                            <div>Titulo</div>
-                            <input type="text" v-model="title" />    
-                            <div>Description</div>
-                            <input type="text" v-model="description" />  
-                            <button @click="addPost">
-                                <div>Añadir</div>
-                            </button>
-                        </div>
-                        <div class="list">
-                            <item v-for="(item, i) in posts" :key="i" :post="item"  />
-                        </div>
-                    </div>
-                    <div v-else>
-                        <div>Username</div>
-                        <input type="text" v-model="username" />    
-                    </div>
-                    <button @click="open = !open">
-                        <div v-if="!open">Acceder</div>
-                        <div v-else>Salir</div> 
-                    </button>
+            <div>
+                <v-layout>
+                    <template v-slot:title>Titulo</template>
+                    <template v-slot:content>Lorem lorem</template>
+                </v-layout>
+            </div>
+            `
+        });
+
+        app.component("v-layout", {
+            template:`
+                <header>
+                    <slot name="title"></slot>
+                </header>
+                <div>
+                    <slot name="content"></slot>
                 </div>
             `
         })
-
-        app.component('item', {
-            props:['post'],
-            template:`
-                <div class="item">
-                    <div class="title">{{ post.title }}</div>
-                    <p>{{ post.description }}</p>
-                    <button @click="deletePost(i)">
-                        <div>Eliminar</div>
-                    </button>
-                </div>
-            `
-        });
-        
         const vm = app.mount('#app');
     </script>
 </body>
