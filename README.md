@@ -21,6 +21,7 @@
 10. [Listas](#listas)
 11. [Componentes](#componentes)
 12. [Slots](#slots)
+13. [Comunicación de componentes](#comunicación-de-componente-padre-a-hijo)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -805,3 +806,33 @@ Cuando se tienen dos o mas etiquetas en un mismo componente deben accederse a tr
     <template v-slot:content>Lorem lorem</template>
 </v-layout>
 ```
+
+
+<div style="margin-bottom:50px;"></div>
+
+## Comunicación de componente padre a hijo
+--- 
+
+La sintaxis de props permite enviar datos de componentes padre a componentes hijo de forma reactiva, se utiliza como una variable local que viene desde una parte externa.
+
+> Es una mala práctica cambiar el valor del prop sin avisar al componente padre
+
+
+```javascript
+app.component("v-item",{
+    props: {
+        text: {
+            default: "Texto vacío"
+        }
+    },
+    template:`
+    <li>
+        {{text}}
+    </li>
+    `
+} )
+```
+
+> La sintaxis en props se puede simplificar a una lista, sin embargo se considera una buena práctica escribirlo como el ejemplo.
+
+> https://vuejs.org/guide/components/props.html#prop-validation

@@ -10,27 +10,28 @@
     <div id="app"></div>
     <script>
         const app = Vue.createApp({
-            template: `
-            <div>
-                <v-layout>
-                    <template v-slot:title>Titulo</template>
-                    <template v-slot:content>Lorem lorem</template>
-                </v-layout>
-            </div>
+                data() {
+                    return {
+                        items: ["uno", "dos", "tres", ,]
+                    };
+                },
+                template: `
+                <ul>
+                    <v-item v-for="item in items" v-bind:text="item"></v-item> 
+                </ul>
             `
-        });
+            });
 
-        app.component("v-layout", {
-            template:`
-                <header>
-                    <slot name="title"></slot>
-                </header>
-                <div>
-                    <slot name="content"></slot>
-                </div>
-            `
-        })
-        const vm = app.mount('#app');
+            app.component("v-item", {
+                props: {
+                    text: {
+                        default: "Texto vacio"
+                    }
+                },
+                template: `<li>{{ text }}</li>`
+            });
+
+        const vm = app.mount("#app");
     </script>
 </body>
 </html>
