@@ -19,6 +19,7 @@
 8. [Estilos reactivos](#estilos-reactivos)
 9. [Condicionales](#condicionales)
 10. [Listas](#listas)
+11. [Componentes](#componentes)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -705,4 +706,44 @@ Ejemplo:
         `
     }).mount('#app');
 </script>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Componentes
+--- 
+
+Reutilizar código por medio de componentes 
+
+1. Separar en una variable el createApp
+```javascript
+const app = Vue.createApp({});
+```
+
+2. Guardar en otra variable el mount
+```javascript
+const vm = app.mount('#app');
+```
+
+3. Crear un componente, el primer atributo es el nombre del componente
+```javascript
+app.component('item', {
+    props:['post'],
+    template:`
+        <div class="item">
+            <div class="title">{{ post.title }}</div>
+            <p>{{ post.description }}</p>
+            <button @click="deletePost(i)">
+                <div>Eliminar</div>
+            </button>
+        </div>
+    `
+});
+```
+
+4. Llamar el componente
+```javascript
+<div class="list">
+    <item v-for="(item, i) in posts" :key="i" :post="item"  />
+</div>
 ```
