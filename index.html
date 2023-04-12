@@ -48,6 +48,10 @@
             font-weight: bold;
             font-size: 1.2rem;
         }
+
+        .tamanio{
+            width: 50%;
+        }
     </style>
 </head>
 <body>
@@ -60,6 +64,8 @@
                     text: 'Acceder a tu cuenta',
                     open: false,
                     username: "",
+                    title: "",
+                    description: "",
                     posts: [{
                         title: "Titulo 1",
                         description: "Lorem ipsum..."
@@ -74,6 +80,18 @@
                         description: "Lorem ipsum..."
                     }]
                 };
+            },
+            methods:{
+                deletePost(value) {
+                    this.posts.splice(value, 1);
+                },
+                addPost() {
+                    obj = {
+                        title: this.title,
+                        description: this.description
+                    }
+                    this.posts.push(obj);
+                }
             },
             watch: {
                 open(value) {
@@ -97,12 +115,24 @@
             template: `
                 <div class="container" :class="bgColor">
                     <h2>{{ text }}</h2>
-                    <div v-if="open">
+                    <div v-if="open" class="tamanio">
                         <p>Hola, {{ username }}</p>
+                        <div>
+                            <div>Titulo</div>
+                            <input type="text" v-model="title" />    
+                            <div>Description</div>
+                            <input type="text" v-model="description" />  
+                            <button @click="addPost">
+                                <div>Añadir</div>
+                            </button>
+                        </div>
                         <div class="list">
                             <div v-for="(item, i) in posts" :key="i" class="item">
                                 <div class="title">{{ item.title }}</div>
                                 <p>{{ item.description }}</p>
+                                <button @click="deletePost(i)">
+                                    <div>Eliminar</div>
+                                </button>
                             </div>
                         </div>
                     </div>
