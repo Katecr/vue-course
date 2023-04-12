@@ -24,7 +24,7 @@
 13. Comunicación de componentes
     - [Comunicación de componente padre a hijo ](#comunicación-de-componente-padre-a-hijo)
     - [Comunicación de componente hijo a padre](#comunicación-de-componente-hijo-a-padre)
-
+14. [Custom v-model](#custom-v-model)
 <div style="margin-bottom:50px;"></div>
 
 
@@ -884,6 +884,51 @@ Para la comunicación de hijo a padre e pueden crear eventos que retornen valore
         template: `<li v-on:click="rm">{{ text }}</li>`
     });
 
+    const vm = app.mount("#app");
+</script>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Custom v-model
+--- 
+
+Permite una comunicacion en dos sentidos entre el padre y el hijo, se debe especificar el prop del componente y la variable involucrada
+
+```javascript
+v-model:propValue="variableValue"
+```
+
+Ejemplo:
+```javascript
+<script>
+    const app = Vue.createApp({
+            data() {
+                return {
+                    text: "Hola Vue"
+                };
+            },
+            template: `
+            <div>
+                <p>{{ text }}</p>
+                <v-input v-model:value="text" />
+            </div>
+        `
+        });
+
+        app.component("v-input", {
+            props: {
+                value: String
+            },
+            methods: {
+                input(e) {
+                    this.$emit("update:value", e.target.value);
+                }
+            },
+            template: `<input type="text" v-bind:value="value" v-on:input="input" />`
+        });
+
+    
     const vm = app.mount("#app");
 </script>
 ```
