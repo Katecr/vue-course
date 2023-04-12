@@ -16,6 +16,7 @@
 5. [Inputs reactivos](#inputs-reactivos)
 6. [Propiedades computadas](#propiedades-computadas)
 7. [Watchers](#watchers)
+8. [Estilos reactivos](#estilos-reactivos)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -384,4 +385,181 @@ Un observador en Vue es una característica especial que nos permite observar al
         `
     }).mount('#app');
 </script>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+
+## Estilos reactivos
+---
+
+Para utilizar estilos en el template de vue, se pueden de dos maneras con style y con clases
+
+1. ***style**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexión CDN</title>
+    <style>
+        html,
+        body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    
+        #app,
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+    
+        button {
+            margin-top: 24px;
+            border: none;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+        }
+    
+        .closed {
+            background-color: #eca1a6;
+        }
+    
+        .open {
+            background-color: #b5e7a0;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="app"></div>
+    <script>
+        const vm = Vue.createApp({
+            data() {
+                return {
+                    text: 'Puerta cerrada',
+                    open: false,
+                    styles:{
+                        backgroundColor: '#eca1a6'
+                    }
+                };
+            },
+            watch: {
+                open(value) {
+                    if (value) {
+                        this.text = 'Puerta abierta';
+                        this.styles.backgroundColor = "#b5e7a0";
+                    } else {
+                        this.text = 'Puerta cerrada';
+                        this.styles.backgroundColor = "#eca1a6";
+                    }
+                }
+            },
+            computed: {
+                label() {
+                    this.open ? "Cerrar" : "Abrir";
+                }
+            },
+            template: `
+                <div class="container" :style="styles">
+                    <h2>{{ text }}</h2>
+                    <button @click="open = !open">{{ open ? "Cerrar" : "Abrir" }}</button>
+                </div>
+            `
+        }).mount('#app');
+    </script>
+</body>
+</html>
+```
+
+1. ***clases**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexión CDN</title>
+    <style>
+        html,
+        body {
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    
+        #app,
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+    
+        button {
+            margin-top: 24px;
+            border: none;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+        }
+    
+        .closed {
+            background-color: #eca1a6;
+        }
+    
+        .open {
+            background-color: #b5e7a0;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <div id="app"></div>
+    <script>
+        const vm = Vue.createApp({
+            data() {
+                return {
+                    text: 'Puerta cerrada',
+                    open: false
+                };
+            },
+            watch: {
+                open(value) {
+                    if (value) {
+                        this.text = 'Puerta abierta';
+                    } else {
+                        this.text = 'Puerta cerrada';
+                    }
+                }
+            },
+            computed: {
+                label() {
+                    this.open ? "Cerrar" : "Abrir";
+                },
+
+                bgColor() {
+                    return this.open ? 'open' : 'closed';
+                },
+            },
+            template: `
+                <div class="container" :class="bgColor">
+                    <h2>{{ text }}</h2>
+                    <button @click="open = !open">{{ open ? "Cerrar" : "Abrir" }}</button>
+                </div>
+            `
+        }).mount('#app');
+    </script>
+</body>
+</html>
 ```
