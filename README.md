@@ -21,7 +21,9 @@
 10. [Listas](#listas)
 11. [Componentes](#componentes)
 12. [Slots](#slots)
-13. [Comunicación de componentes](#comunicación-de-componente-padre-a-hijo)
+13. Comunicación de componentes
+    - [Comunicación de componente padre a hijo ](#comunicación-de-componente-padre-a-hijo)
+    - [Comunicación de componente hijo a padre](#comunicación-de-componente-hijo-a-padre)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -836,3 +838,52 @@ app.component("v-item",{
 > La sintaxis en props se puede simplificar a una lista, sin embargo se considera una buena práctica escribirlo como el ejemplo.
 
 > https://vuejs.org/guide/components/props.html#prop-validation
+
+
+<div style="margin-bottom:50px;"></div>
+
+## Comunicación de componente hijo a padre
+--- 
+
+Para la comunicación de hijo a padre e pueden crear eventos que retornen valores y ejecuten código, en el ejemplo a continuación se crea un método en el componente hijo que es llamado al hacer click, el método dispara un evento que es escuchado desde el componente padre, se utiliza la sintaxis ```$emit```:
+
+```javascript
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                items: ["uno", "dos", "tres"]
+            };
+        },
+        methods: {
+            remove(i) {
+                const items = this.items.filter((el, index) => index !== i);
+                this.items = items;
+            }
+        },
+        template: `
+                <ul>
+                    <v-item
+                        v-for="(item, i) in items"
+                        v-bind:text="item"
+                        v-on:remove="remove(i)"
+                    />
+                </ul>
+            `
+    });
+
+    app.component("v-item", {
+        props: {
+            text: String
+        },
+        methods: {
+            rm() {
+                this.$emit("remove");
+            }
+        },
+        template: `<li v-on:click="rm">{{ text }}</li>`
+    });
+
+    const vm = app.mount("#app");
+</script>
+```
