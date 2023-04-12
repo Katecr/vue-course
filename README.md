@@ -27,6 +27,7 @@
 14. [Custom v-model](#custom-v-model)
 15. [Comunicación con componentes profundos](#comunicación-con-componentes-profundos)
 16. [Instancias de componentes](#instancias-de-componentes)
+17. [Vue progresivo](#vue-progresivo)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -996,3 +997,13 @@ Una instancia es una copia de un componente de Vue. Estas instancias sirven para
 4. Para props, ```vm.$props``` de esta forma se puede interactuar con Vue y JavaScript Vanila de forma progresiva.
 
 > https://lenguajejs.com/vuejs/componentes/instancias-vue/
+
+
+<div style="margin-bottom:50px;"></div>
+
+## Vue progresivo
+--- 
+
+Otra manera de utilizar vue es a través de CLI
+
+> https://cli.vuejs.org/guide/installation.html
