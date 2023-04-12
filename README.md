@@ -18,6 +18,7 @@
 7. [Watchers](#watchers)
 8. [Estilos reactivos](#estilos-reactivos)
 9. [Condicionales](#condicionales)
+10. [Listas](#listas)
 
 <div style="margin-bottom:50px;"></div>
 
@@ -597,6 +598,100 @@ Se pueden utilizar condicionales dentro de los templates, se utiliza las directi
                 <h2>{{ text }}</h2>
                 <div v-if="open">
                     <p>Hola, {{ username }}</p>
+                </div>
+                <div v-else>
+                    <div>Username</div>
+                    <input type="text" v-model="username" />    
+                </div>
+                <button @click="open = !open">
+                    <div v-if="!open">Acceder</div>
+                    <div v-else>Salir</div> 
+                </button>
+            </div>
+        `
+    }).mount('#app');
+</script>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Listas
+--- 
+
+vue permite iterar una lista con la directiva ```v-for```
+
+1. 
+```javascript 
+
+<div v-for="item in posts" class="item">
+    <div class="title">{{ item.title }}</div>
+    <p>{{ item.description }}</p>
+</div>
+```
+
+2. Un id unico para cada item iterado
+```javascript 
+<div v-for="(item, i) in posts" :key="i" class="item">
+    <div class="title">{{ item.title }}</div>
+    <p>{{ item.description }}</p>
+</div>
+```
+
+Ejemplo:
+
+```javascript
+<script>
+    const vm = Vue.createApp({
+        data() {
+            return {
+                text: 'Acceder a tu cuenta',
+                open: false,
+                username: "",
+                posts: [{
+                    title: "Titulo 1",
+                    description: "Lorem ipsum..."
+                }, {
+                    title: "Titulo 2",
+                    description: "Lorem ipsum..."
+                }, {
+                    title: "Titulo 3",
+                    description: "Lorem ipsum..."
+                }, {
+                    title: "Titulo 4",
+                    description: "Lorem ipsum..."
+                }]
+            };
+        },
+        watch: {
+            open(value) {
+                if (value) {
+                    this.text = 'Cerrar sesión';
+                } else {
+                    this.text = 'Acceder a tu cuenta';
+                    this.username = "";
+                }
+            }
+        },
+        computed: {
+            textButton() {
+                return this.open ? 'Salir' : 'Acceder';
+            },
+
+            bgColor() {
+                return this.open ? ['open'] : ['closed'];
+            },
+        },
+        template: `
+            <div class="container" :class="bgColor">
+                <h2>{{ text }}</h2>
+                <div v-if="open">
+                    <p>Hola, {{ username }}</p>
+                    <div class="list">
+                        <div v-for="(item, i) in posts" :key="i" class="item">
+                            <div class="title">{{ item.title }}</div>
+                            <p>{{ item.description }}</p>
+                        </div>
+                    </div>
                 </div>
                 <div v-else>
                     <div>Username</div>
