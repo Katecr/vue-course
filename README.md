@@ -3,7 +3,7 @@
   <h2>Introducción y Fundamentos</h2>
 </div>
 <div align="center" style="margin-top:20px;"> 
-  <img src="img_readme/logo_vue.jpg" width="100%" title="logo_fastapi" alt="logo_fastapi">
+  <img src="img_readme/logo_vue.jpg" width="100%" title="logo_vue" alt="logo_vue">
 </div>
 
 <div style="margin-bottom:50px;"></div>
@@ -25,6 +25,8 @@
     - [Comunicación de componente padre a hijo ](#comunicación-de-componente-padre-a-hijo)
     - [Comunicación de componente hijo a padre](#comunicación-de-componente-hijo-a-padre)
 14. [Custom v-model](#custom-v-model)
+15. [Comunicación con componentes profundos](#comunicación-con-componentes-profundos)
+
 <div style="margin-bottom:50px;"></div>
 
 
@@ -929,6 +931,53 @@ Ejemplo:
         });
 
     
+    const vm = app.mount("#app");
+</script>
+```
+
+<div style="margin-bottom:50px;"></div>
+
+## Comunicación con componentes profundos
+--- 
+
+Un componente profundo es cuando un componente no es directamente hijo de un elemento padre
+
+<div align="center" style="margin-top:20px;"> 
+  <img src="img_readme/components_provide.png" width="100%" title="components" alt="components">
+</div>
+
+```javascript
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                text: "Hola Vue"
+            };
+        },
+        provide() {
+            return {
+                otroTexto: this.text
+            };
+        },
+        template: `
+                <div>{{ text }}</div>
+                <otro />
+            `
+    });
+
+    app.component("otro", {
+        template: `<tercer />`
+    });
+
+    app.component("tercer", {
+        inject: {
+            otroTexto: {
+                from: "otroTexto",
+            }
+        },
+        template: `<div>{{ otroTexto }}</div>`
+    });
+
     const vm = app.mount("#app");
 </script>
 ```
